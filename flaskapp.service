@@ -1,0 +1,16 @@
+[Unit]
+Description=FlaskApp Docker Compose Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/devops/flaskApp
+ExecStart=docker-compose up -d
+ExecStop=docker-compose down
+RemainAfterExit=true
+Restart=on-failure
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

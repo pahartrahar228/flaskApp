@@ -1,0 +1,38 @@
+
+version: "3.8"
+services:
+  test-app:
+    build: test-app/
+    ports:
+      - "1283:1283"
+    expose:
+      - "1283"
+    volumes:
+      - app-db:/app/db
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+      - "443"
+    depends_on:
+      - test-app
+    networks:
+      - app-network
+
+
+volumes:
+  app-db:
+
+networks:
+  app-network:
+    driver: bridge

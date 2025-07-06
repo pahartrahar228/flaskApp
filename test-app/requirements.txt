@@ -1,0 +1,10 @@
+flask
+flask_wtf
+tamga
+passlib
+requests
+geoip2
+user_agents
+jinja2
+fastapi
+gunicorn
